@@ -35,15 +35,12 @@ ctr_ct1 = bytes.fromhex("69dda8455c7dd4254bf353b773304eec0ec7702330098ce7f7520d1
 def ctr_decrypt(key, iv, ct):
     cipher = AES.new(key, AES.MODE_CTR)
 
-    nonce = iv[:8]
-    ctr = iv[8:]
     out = b""
     for i, c in enumerate(chunker(ct,16)):
-        out += bytes([_a ^ _b for _a, _b in zip(cipher.decrypt(c), nonce + ctr)])
-        #set_trace()
-        print(ctr)
-        ##iv += 1
-        ctr = (int.from_bytes(ctr, "big") + 1).to_bytes(8, "big")
+        #out += bytes([_a ^ _b for _a, _b in zip(cipher.decrypt(c), iv)])
+        #out += cipher.decrypt(c)
+        set_trace()
+        #iv = (int.from_bytes(iv, "big") + 1).to_bytes(16, "big")
     
     return out
 
